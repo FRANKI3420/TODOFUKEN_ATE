@@ -1,0 +1,180 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+    background-color: #f8f9fa;
+}
+
+h1 {
+    font-size: 1.2rem;
+}
+
+/* 地図を画面幅いっぱいに広げる */
+#my-map {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    touch-action: manipulation;
+    /* ズームによる誤動作防止 */
+}
+
+/* ボタンを大きくして押しやすくする */
+#startButton {
+    width: 80%;
+    max-width: 300px;
+    padding: 15px;
+    font-weight: bold;
+    border-radius: 30px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#result {
+    min-height: 3em;
+    font-weight: bold;
+    background: white;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 10px;
+    width: 90%;
+}
+
+/* 連続正解の演出をスマホでも見やすく */
+#celebration {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    z-index: 100;
+    pointer-events: none;
+}
+
+/* ボタンの並び（グリッドレイアウト） */
+.pref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 8px;
+    padding: 10px;
+}
+
+/* 都道府県ボタンのスタイル */
+.pref-btn {
+    padding: 12px 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    background-color: #ffffff;
+    border: 2px solid #007bff;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+/* タップした時の反応 */
+.pref-btn:active {
+    background-color: #007bff;
+    color: white;
+    transform: scale(0.95);
+}
+
+#region-container {
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: left;
+    /* 左寄せで見やすく */
+    padding: 0 10px;
+}
+
+.region-section {
+    margin-bottom: 20px;
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.region-title {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #666;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.pref-grid {
+    display: grid;
+    /* スマホで3列、少し大きな画面で4列に自動調整 */
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+    gap: 8px;
+}
+
+.pref-btn {
+    padding: 12px 5px;
+    font-size: 0.9em;
+    cursor: pointer;
+    background-color: #fcfcfc;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    transition: 0.2s;
+}
+
+.pref-btn:active {
+    background-color: #007bff;
+    color: white;
+}
+
+#region-container {
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+
+.region-section {
+    width: 100%;
+    margin-bottom: 25px;
+    clear: both;
+}
+
+.region-title {
+    background: #f0f0f0;
+    padding: 8px 15px;
+    font-weight: bold;
+    font-size: 0.9em;
+    border-left: 5px solid #007bff;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.pref-grid {
+    display: grid;
+    /* 画面幅いっぱいに3等分して並べる */
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    /* ボタン同士の隙間 */
+}
+
+.pref-btn {
+    width: 100%;
+    /* 幅いっぱい */
+    padding: 15px 0;
+    /* 高さを出して押しやすく */
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    -webkit-tap-highlight-color: transparent;
+    /* タップ時の青枠を消す */
+}
+
+/* タップした瞬間だけ色を変える（反応を良くする） */
+.pref-btn:active {
+    background-color: #007bff !important;
+    color: white !important;
+    transform: scale(0.98);
+}
