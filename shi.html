@@ -18,7 +18,7 @@
   <div id="result"></div>
   <div id="judge" style="font-size: 2.5em;"></div>
   <div id="scoreboard" style="margin-top: 5px; font-size: 2.2em;">
-    スコア: <span id="score">0</span> / 連続正解: <span id="streak">0</span>
+    スコア: <span id="score">0</span> / 10（正答率: <span id="accuracy">0</span>%）
   </div>
   <div id="celebration" style="display:none; font-size: 2em; color: gold;">🎉 すごい！連続正解！ 🎉</div>
   <div id="region-container" style="width: 100%; margin: 10px 0;"></div>
@@ -26,21 +26,26 @@
     <div id="result"></div>
     <div id="judge" style="font-size: 2.5em;"></div>
   </div>
+  <div id="ranking-container" style="margin-top: 20px; border-top: 2px solid #ccc; padding-top: 10px;">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+      <h2>🏆 現在のランキング (トップ5)</h2>
+      <button id="resetButton"
+        style="background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px;">
+        ランキングをリセット
+      </button>
+    </div>
 
-  <div id="ranking-container" style="margin-top: 20px; display:none;">
-    <h2>🏆 ランキング (トップ5)</h2>
     <table id="ranking-table" style="margin: 0 auto; font-size: 1.5em;">
       <thead>
         <tr>
           <th>順位</th>
-          <th>正答数</th>
+          <th>正答率</th>
           <th>タイム</th>
           <th>日付</th>
         </tr>
       </thead>
       <tbody id="ranking-body"></tbody>
     </table>
-    <button onclick="location.reload()">もう一度挑戦</button>
   </div>
 
   <script type="text/javascript" src="https://unpkg.com/japan-map-js@1.0.1/dist/jpmap.min.js"></script>
