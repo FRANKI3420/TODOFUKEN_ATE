@@ -4,6 +4,7 @@
     /* パディングを含めたサイズ計算 */
 }
 
+
 body {
     font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
     text-align: center;
@@ -17,7 +18,7 @@ body {
 }
 
 h1 {
-    font-size: 1.1rem;
+    font-size: 2.1rem;
     margin: 10px 0;
     color: #333;
 }
@@ -27,7 +28,7 @@ h1 {
     width: 90%;
     max-width: 350px;
     padding: 15px;
-    font-size: 1.1em;
+    font-size: 2.1em;
     font-weight: bold;
     border-radius: 30px;
     border: none;
@@ -39,11 +40,10 @@ h1 {
 }
 
 #result {
-    min-height: 3.5em;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 2.1em;
     background: white;
-    margin: 10px auto;
+    margin: 5px auto;
     padding: 15px 10px;
     border-radius: 10px;
     width: 95%;
@@ -92,7 +92,7 @@ h1 {
     background: #538fcb;
     color: white;
     padding: 6px 12px;
-    font-size: 0.85em;
+    font-size: 1.5em;
     font-weight: bold;
     text-align: left;
     margin-bottom: 4px;
@@ -112,7 +112,7 @@ h1 {
     width: 100%;
     padding: 14px 0;
     /* 指で押しやすい高さ */
-    font-size: 0.9em;
+    font-size: 1.9em;
     font-weight: bold;
     cursor: pointer;
     background-color: #fff;
