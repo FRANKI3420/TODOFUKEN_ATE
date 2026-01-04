@@ -22,9 +22,26 @@
   </div>
   <div id="celebration" style="display:none; font-size: 2em; color: gold;">🎉 すごい！連続正解！ 🎉</div>
   <div id="region-container" style="width: 100%; margin: 10px 0;"></div>
-  <!-- <div id="pref-buttons-container" style="max-width: 600px; margin: 20px auto;"></div> -->
-  <div id="result"></div>
-  <div id="judge"></div>
+  <div id="quiz-area" style="display:none;">
+    <div id="result"></div>
+    <div id="judge" style="font-size: 2.5em;"></div>
+  </div>
+
+  <div id="ranking-container" style="margin-top: 20px; display:none;">
+    <h2>🏆 ランキング (トップ5)</h2>
+    <table id="ranking-table" style="margin: 0 auto; font-size: 1.5em;">
+      <thead>
+        <tr>
+          <th>順位</th>
+          <th>正答数</th>
+          <th>タイム</th>
+          <th>日付</th>
+        </tr>
+      </thead>
+      <tbody id="ranking-body"></tbody>
+    </table>
+    <button onclick="location.reload()">もう一度挑戦</button>
+  </div>
 
   <script type="text/javascript" src="https://unpkg.com/japan-map-js@1.0.1/dist/jpmap.min.js"></script>
   <script src="script.js"></script>
