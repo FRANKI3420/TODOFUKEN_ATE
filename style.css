@@ -1,180 +1,149 @@
+/* --- 基本設定 --- */
+* {
+    box-sizing: border-box;
+    /* パディングを含めたサイズ計算 */
+}
+
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
     text-align: center;
     margin: 0;
-    padding: 10px;
+    padding: 10px 5px;
+    /* 左右の余白を最小限に */
     background-color: #f8f9fa;
+    width: 100%;
+    overflow-x: hidden;
+    /* 横揺れ防止 */
 }
 
 h1 {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+    margin: 10px 0;
+    color: #333;
 }
 
-/* 地図を画面幅いっぱいに広げる */
-#my-map {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    touch-action: manipulation;
-    /* ズームによる誤動作防止 */
-}
-
-/* ボタンを大きくして押しやすくする */
+/* --- 問題・ボタンエリア --- */
 #startButton {
-    width: 80%;
-    max-width: 300px;
+    width: 90%;
+    max-width: 350px;
     padding: 15px;
+    font-size: 1.1em;
     font-weight: bold;
     border-radius: 30px;
     border: none;
     background-color: #007bff;
     color: white;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    cursor: pointer;
 }
 
 #result {
-    min-height: 3em;
+    min-height: 3.5em;
     font-weight: bold;
+    font-size: 1.1em;
     background: white;
     margin: 10px auto;
-    padding: 10px;
+    padding: 15px 10px;
     border-radius: 10px;
-    width: 90%;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
 }
 
-/* 連続正解の演出をスマホでも見やすく */
-#celebration {
-    position: fixed;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    z-index: 100;
-    pointer-events: none;
+/* --- 判定・スコア表示 --- */
+#judge {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 10px 0;
+    height: 1.5em;
 }
 
-/* ボタンの並び（グリッドレイアウト） */
+#judge.correct {
+    color: #28a745;
+}
+
+#judge.incorrect {
+    color: #dc3545;
+}
+
+#scoreboard {
+    background: #e9ecef;
+    padding: 8px;
+    border-radius: 5px;
+    margin: 10px auto;
+    width: 95%;
+}
+
+/* --- 地方別ボタンコンテナ --- */
+#region-container {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.region-section {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.region-title {
+    background: #538fcb;
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.85em;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 4px;
+}
+
+/* ⭐ 1行4列のグリッド設定 */
 .pref-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 8px;
-    padding: 10px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3px;
+    /* ボタン間の隙間を最小に */
+    width: 100%;
 }
 
-/* 都道府県ボタンのスタイル */
+/* --- 都道府県ボタン単体 --- */
 .pref-btn {
-    padding: 12px 5px;
+    width: 100%;
+    padding: 14px 0;
+    /* 指で押しやすい高さ */
     font-size: 0.9em;
+    font-weight: bold;
     cursor: pointer;
-    background-color: #ffffff;
-    border: 2px solid #007bff;
-    border-radius: 6px;
-    transition: 0.2s;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: background 0.1s;
+    /* 文字溢れ対策 */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* タップした時の反応 */
 .pref-btn:active {
-    background-color: #007bff;
-    color: white;
-    transform: scale(0.95);
-}
-
-#region-container {
-    max-width: 600px;
-    margin: 20px auto;
-    text-align: left;
-    /* 左寄せで見やすく */
-    padding: 0 10px;
-}
-
-.region-section {
-    margin-bottom: 20px;
-    background: #fff;
-    border-radius: 8px;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.region-title {
-    font-size: 0.9em;
-    font-weight: bold;
-    color: #666;
-    border-bottom: 2px solid #eee;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-}
-
-.pref-grid {
-    display: grid;
-    /* スマホで3列、少し大きな画面で4列に自動調整 */
-    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
-    gap: 8px;
-}
-
-.pref-btn {
-    padding: 12px 5px;
-    font-size: 0.9em;
-    cursor: pointer;
-    background-color: #fcfcfc;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-align: center;
-    transition: 0.2s;
-}
-
-.pref-btn:active {
-    background-color: #007bff;
-    color: white;
-}
-
-#region-container {
-    box-sizing: border-box;
-    padding: 0 10px;
-}
-
-.region-section {
-    width: 100%;
-    margin-bottom: 25px;
-    clear: both;
-}
-
-.region-title {
-    background: #f0f0f0;
-    padding: 8px 15px;
-    font-weight: bold;
-    font-size: 0.9em;
-    border-left: 5px solid #007bff;
-    margin-bottom: 10px;
-    text-align: left;
-}
-
-.pref-grid {
-    display: grid;
-    /* 画面幅いっぱいに3等分して並べる */
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 8px;
-    /* ボタン同士の隙間 */
-}
-
-.pref-btn {
-    width: 100%;
-    /* 幅いっぱい */
-    padding: 15px 0;
-    /* 高さを出して押しやすく */
-    font-size: 1.1em;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    -webkit-tap-highlight-color: transparent;
-    /* タップ時の青枠を消す */
-}
-
-/* タップした瞬間だけ色を変える（反応を良くする） */
-.pref-btn:active {
     background-color: #007bff !important;
     color: white !important;
-    transform: scale(0.98);
+    border-color: #0056b3;
+}
+
+/* --- 演出用 --- */
+#celebration {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    font-size: 2em;
+    font-weight: bold;
+    color: #ffc107;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    pointer-events: none;
+    display: none;
 }
