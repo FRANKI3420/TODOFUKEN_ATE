@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <title>都道府県クイズ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>自治体クイズ（総合）：どの都道府県？</h1>
+
+  <audio id="celebrate-sound" src="sound/「すごいすごい」.mp3" preload="auto"></audio>
+  <audio id="atari-sound" src="sound/「当ったり～」.mp3" preload="auto"></audio>
+  <audio id="hazure-sound" src="sound/「はっずれ～」.mp3" preload="auto"></audio>
+
+  <button id="startButton">スタート</button>
+  <div id="result"></div>
+  <div id="judge" style="font-size: 2.5em;"></div>
+  <div id="scoreboard" style="margin-top: 5px; font-size: 2.2em;">
+    スコア: <span id="score">0</span> / 10（正答率: <span id="accuracy">0</span>%）
+  </div>
+  <div id="celebration" style="display:none; font-size: 2em; color: gold;">🎉 すごい！連続正解！ 🎉</div>
+  <div id="region-container" style="width: 100%; margin: 10px 0;"></div>
+  <div id="quiz-area" style="display:none;">
+    <div id="result"></div>
+    <div id="judge" style="font-size: 2.5em;"></div>
+  </div>
+  <div id="ranking-container" style="margin-top: 20px; border-top: 2px solid #ccc; padding-top: 10px;">
+    <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+      <h2>🏆 現在のランキング (トップ5)</h2>
+      <button id="resetButton"
+        style="background-color: #ff4d4d; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 5px;">
+        ランキングをリセット
+      </button>
+    </div>
+
+    <table id="ranking-table" style="margin: 0 auto; font-size: 1.5em;">
+      <thead>
+        <tr>
+          <th>順位</th>
+          <th>正答率</th>
+          <th>タイム</th>
+          <th>日付</th>
+        </tr>
+      </thead>
+      <tbody id="ranking-body"></tbody>
+    </table>
+  </div>
+
+  <script type="text/javascript" src="https://unpkg.com/japan-map-js@1.0.1/dist/jpmap.min.js"></script>
+  <script src="sogo.js"></script>
+
+</body>
+
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <title>都道府県クイズ選択</title>
@@ -9,6 +10,7 @@
       text-align: center;
       padding: 80px;
     }
+
     button {
       font-size: 1.2em;
       padding: 12px 30px;
@@ -20,16 +22,21 @@
       color: white;
       transition: 0.2s;
     }
+
     button:hover {
       background-color: #45a049;
     }
   </style>
 </head>
-<body>
-  <h1>モードを選択してください</h1>
 
+<body>
+  <h1>都道府県クイズ</h1>
+  <p>都道府県に関するクイズに挑戦しましょう！</p>
+  <p>モードを選択してください</p>
+  <button onclick="location.href='sogo.html'">総合モード</button>
   <button onclick="location.href='shi.html'">市モード</button>
   <button onclick="location.href='machi.html'">町モード</button>
   <button onclick="location.href='mura.html'">村モード</button>
 </body>
+
 </html>
