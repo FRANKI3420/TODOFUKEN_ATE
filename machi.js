@@ -119,11 +119,12 @@ function finishGame() {
 
   document.getElementById("quiz-area").style.display = "none";
   document.getElementById("startButton").style.display = "block"; // スタートボタンを再表示
+  document.getElementById("ranking-container").style.display = "block"; // ランキングを表示
 
   alert(`終了！\n正答率: ${finalAccuracy}%\nタイム: ${totalTime}秒`);
 
   saveRanking(finalAccuracy, totalTime);
-  // ランキング表示を更新（常に表示されているので、中身だけ書き換える）
+  // ランキング表示を更新
   showRanking();
 }
 
