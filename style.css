@@ -77,6 +77,60 @@ h1 {
     width: 95%;
 }
 
+/* --- 音声入力ボタン --- */
+#voice-input-button {
+    width: 90%;
+    max-width: 350px;
+    padding: 15px;
+    font-size: 1.8em;
+    font-weight: bold;
+    border-radius: 30px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px auto;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: none;
+}
+
+#voice-input-button:hover {
+    background-color: #218838;
+}
+
+#voice-input-button:active {
+    background-color: #1e7e34;
+}
+
+#voice-input-button.recording {
+    background-color: #dc3545;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+#voice-input-button.recording:hover {
+    background-color: #c82333;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+}
+
+#voice-status {
+    font-size: 1.5em;
+    margin: 10px 0;
+    min-height: 1.5em;
+    color: #666;
+}
+
 /* --- 地方別ボタンコンテナ --- */
 #region-container {
     width: 100%;

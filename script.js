@@ -37,9 +37,11 @@ function startQuiz() {
   document.getElementById("quiz-area").style.display = "block";
   document.getElementById("startButton").style.display = "none";
   document.getElementById("ranking-container").style.display = "none";
+  document.getElementById("voice-input-button").style.display = "none"; // ボタンは非表示
 
   startTime = Date.now();
   showNextQuestion();
+  startVoiceRecognition(); // 自動的に音声認識を開始
 }
 
 function showNextQuestion() {
@@ -57,6 +59,18 @@ function showNextQuestion() {
   const judgeDiv = document.getElementById("judge");
   judgeDiv.textContent = "";
   judgeDiv.className = "";
+  
+  // 次の問題が表示されたら音声認識を再開
+  if (isQuizActive && !isListening && recognition) {
+    setTimeout(() => {
+      try {
+        recognition.start();
+        isListening = true;
+      } catch (e) {
+        console.error("音声認識の再開に失敗しました:", e);
+      }
+    }, 100);
+  }
 }
 
 function handleAnswer(selectedPref) {
@@ -120,6 +134,7 @@ function finishGame() {
   document.getElementById("quiz-area").style.display = "none";
   document.getElementById("startButton").style.display = "block"; // スタートボタンを再表示
   document.getElementById("ranking-container").style.display = "block"; // ランキングを表示
+  stopVoiceRecognition(); // 音声認識を停止
 
   alert(`終了！\n正答率: ${finalAccuracy}%\nタイム: ${totalTime}秒`);
 
@@ -220,3 +235,103 @@ regions.forEach(region => {
 });
 
 document.getElementById("startButton").addEventListener("click", startQuiz);
+
+// --- 音声入力機能 ---
+const allPrefs = ["北海道", "青森", "岩手", "宮城", "秋田", "山形", "福島", "茨城", "栃木", "群馬", "埼玉", "千葉", "東京", "神奈川", "新潟", "富山", "石川", "福井", "山梨", "長野", "岐阜", "静岡", "愛知", "三重", "滋賀", "京都", "大阪", "兵庫", "奈良", "和歌山", "鳥取", "島根", "岡山", "広島", "山口", "徳島", "香川", "愛媛", "高知", "福岡", "佐賀", "長崎", "熊本", "大分", "宮崎", "鹿児島", "沖縄"];
+
+let recognition = null;
+let isListening = false;
+let isQuizActive = false;
+
+// 音声認識APIの初期化
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.lang = 'ja-JP';
+  recognition.continuous = true; // 継続的に音声を認識
+  recognition.interimResults = false;
+
+  recognition.onresult = function(event) {
+    if (!isQuizActive || currentIndex === null) return;
+
+    const transcript = event.results[event.results.length - 1][0].transcript;
+    const voiceStatusDiv = document.getElementById("voice-status");
+    
+    // 都道府県名と照合
+    const matchedPref = allPrefs.find(pref => 
+      transcript.includes(pref) || pref.includes(transcript.replace(/\s+/g, ''))
+    );
+
+    if (matchedPref) {
+      voiceStatusDiv.textContent = `認識: ${transcript} → ${matchedPref}`;
+      // 回答処理前に音声認識を一時停止（重複処理を防ぐ）
+      recognition.stop();
+      isListening = false;
+      handleAnswer(matchedPref);
+    }
+  };
+
+  recognition.onerror = function(event) {
+    // no-speechエラーは無視（継続認識では頻繁に発生するため）
+    if (event.error === 'no-speech') {
+      return;
+    }
+    
+    const voiceStatusDiv = document.getElementById("voice-status");
+    if (event.error === 'not-allowed') {
+      voiceStatusDiv.textContent = "マイクの許可が必要です";
+      setTimeout(() => {
+        voiceStatusDiv.textContent = "";
+      }, 3000);
+    } else if (event.error !== 'aborted') {
+      // abortedは意図的な停止なので無視
+      console.error("音声認識エラー:", event.error);
+    }
+  };
+
+  recognition.onend = function() {
+    isListening = false;
+    // クイズ中で、currentIndexが設定されている場合のみ自動的に再開
+    // （回答処理中は再開しない）
+    if (isQuizActive && currentIndex !== null && recognition) {
+      try {
+        recognition.start();
+        isListening = true;
+      } catch (e) {
+        console.error("音声認識の再開に失敗しました:", e);
+      }
+    }
+  };
+}
+
+function startVoiceRecognition() {
+  if (!recognition) {
+    return; // ブラウザが対応していない場合は何もしない
+  }
+
+  if (isListening) {
+    return;
+  }
+
+  isQuizActive = true;
+  try {
+    recognition.start();
+    isListening = true;
+    document.getElementById("voice-status").textContent = "🎤 音声入力が有効です";
+  } catch (e) {
+    console.error("音声認識の開始に失敗しました:", e);
+  }
+}
+
+function stopVoiceRecognition() {
+  isQuizActive = false;
+  if (recognition && isListening) {
+    try {
+      recognition.stop();
+    } catch (e) {
+      console.error("音声認識の停止に失敗しました:", e);
+    }
+    isListening = false;
+  }
+  document.getElementById("voice-status").textContent = "";
+}
